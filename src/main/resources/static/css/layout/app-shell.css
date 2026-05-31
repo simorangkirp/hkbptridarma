@@ -1,0 +1,30 @@
+.app-shell {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
+    transition: grid-template-columns 0.3s ease;
+}
+
+.app-shell.minimized {
+    grid-template-columns: 80px 1fr;
+}
+
+.sidebar {
+    width: 100%;
+}
+
+.sidebar {
+    border-right: 1px solid var(--border);
+}
+
+.main-content {
+    padding: 28px;
+}
+
+.app-shell.minimized {
+    grid-template-columns: 80px 1fr;
+}
+
+.app-shell.minimized .content-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+}

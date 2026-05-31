@@ -1,0 +1,37 @@
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+        <div class="brand-row">
+            <div class="brand-logo" id="brandLogo">♫</div>
+
+            <div class="brand-text">
+                <div class="brand-title">Church Player</div>
+                <div class="brand-subtitle">Multimedia Console</div>
+            </div>
+
+            <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">◀</button>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="#" class="nav-item" onclick="navigate('/dashboard')">🏠 Dashboard</a>
+        <a href="#" class="nav-item" onclick="navigate('/search')">🔍 Search</a>
+        <a href="#" class="nav-item" onclick="navigate('/queue')">☰ Queue</a>
+        <a href="#" class="nav-item" onclick="navigate('/incoming')">⬇ Incoming</a>
+
+        <div class="nav-section-title">Library</div>
+        <a href="#" class="nav-item" onclick="navigate('/history')">✔ Played History</a>
+        <a href="#" class="nav-item" onclick="navigate('/logs')">📜 Logs</a>
+        <a href="#" class="nav-item" onclick="navigate('/settings')">⚙ Settings</a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="mini-track">
+            <div class="mini-cover">♪</div>
+            <div>
+                <div class="mini-track-title">Church Service</div>
+                <div class="mini-track-subtitle">Ready to play</div>
+            </div>
+        </div>
+    </div>
+</aside>

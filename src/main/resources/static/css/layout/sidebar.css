@@ -1,0 +1,104 @@
+.sidebar {
+    background: linear-gradient(180deg, #11141d 0%, #0c0f16 100%);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 12px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.brand-row {
+    display: grid;
+    grid-template-columns: 48px 1fr 24px;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    font-size: 20px;
+}
+
+.sidebar-toggle {
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nav-section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin: 16px 10px 6px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--muted);
+    padding: 11px 12px;
+    border-radius: 12px;
+    transition: 0.2s;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+}
+
+
+/* ======================
+   SIDEBAR MINIMIZED
+====================== */
+
+.app-shell.minimized .sidebar {
+    padding: 20px 8px;
+}
+
+.app-shell.minimized .brand-text,
+.app-shell.minimized .nav-section-title,
+.app-shell.minimized .sidebar-footer {
+    display: none;
+}
+
+/* Logo jadi center */
+.app-shell.minimized .brand-row {
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+/* Menu jadi icon center */
+.app-shell.minimized .nav-item {
+    font-size: 0;
+    padding: 14px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Icon tetap terlihat */
+.app-shell.minimized .nav-item::first-letter {
+    font-size: 18px;
+}
+
+/* Hover tetap bulat */
+.app-shell.minimized .nav-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+}

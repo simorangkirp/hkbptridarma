@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Church Player Dashboard</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="app-shell" id="appShell">
+       <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-row">
+                    <div class="brand-logo" id="brandLogo">♫</div>
+
+                    <div class="brand-text">
+                        <div class="brand-title">Church Player</div>
+                        <div class="brand-subtitle">Multimedia Console</div>
+                    </div>
+
+                    <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">◀</button>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Main</div>
+                <a href="#" class="nav-item" onclick="showPanel('dashboard')">🏠 Dashboard</a>
+                <a href="#" class="nav-item" onclick="showPanel('search')">🔍 Search</a>
+                <a href="#" class="nav-item" onclick="showPanel('queue')">☰ Queue</a>
+                <a href="#" class="nav-item" onclick="showPanel('incoming')">⬇ Incoming</a>
+
+                <div class="nav-section-title">Library</div>
+
+                <a href="#" class="nav-item" onclick="showPanel('history')">✔ Played History</a>
+                <a href="#" class="nav-item" onclick="showPanel('logs')">📜 Logs</a>
+                <a href="#" class="nav-item" onclick="showPanel('settings')">⚙ Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="mini-track">
+                    <div class="mini-cover">♪</div>
+                    <div>
+                        <div class="mini-track-title">Church Service</div>
+                        <div class="mini-track-subtitle">Ready to play</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <!-- DASHBOARD PANEL -->
+            <div id="dashboardPanel">
+                <header class="topbar">
+                    <div>
+                        <div class="page-kicker">Live Control</div>
+                        <h1>Church Player Dashboard</h1>
+                    </div>
+
+                    <div class="topbar-actions">
+                        <input
+                            type="text"
+                            class="search-input"
+                            placeholder="Search UI placeholder"
+                            disabled
+                        />
+                        <button onclick="refreshAll()">↻ Refresh</button>
+                        <button onclick="playNext()">▶ Play Next</button>
+                    </div>
+                </header>
+
+                <div id="error" class="error-banner"></div>
+
+                <section class="hero-grid">
+                    <div class="hero-panel">
+                        <div class="section-label">Now Playing</div>
+                        <div id="current" class="hero-now-playing">
+                            <span class="muted">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-panel">
+                        <div class="section-label">Played History</div>
+                        <div id="status">
+                            <span class="muted">Loading...</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-grid">
+                    <div class="content-panel">
+                        <div class="panel-header">
+                            <h3>Queue</h3>
+                        </div>
+                        <div id="queue">
+                            <span class="muted">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="content-panel">
+                        <div class="panel-header">
+                            <h3>Incoming Tracks</h3>
+                        </div>
+                        <div id="tracks">
+                            <span class="muted">Loading...</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+          <!-- SEARCH PANEL -->
+            <div id="searchPanel" style="display:none;">
+
+                <!-- TOP SEARCH BAR -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h2>Search</h2>
+
+                    <input type="text"
+                        id="searchInput"
+                        placeholder="Search artist or song..."
+                        onkeyup="searchSong(this.value)"
+                        class="search-top-input">
+                </div>
+
+                <!-- SONGS SECTION -->
+                <div class="section-header">
+                    <h3>Songs</h3>
+                    <a href="#" id="seeAllBtn" onclick="showAllResults()">See All</a>
+                </div>
+
+                <div id="searchResultsGrid" class="song-grid"></div>
+
+            </div>
+
+            <!-- LYRIC PANEL -->
+             <div id="lyricsPanel" style="display:none;">
+                <div class="content-panel">
+
+                    <button onclick="showPanel('search')">← Back</button>
+
+                    <div class="lyrics-header">
+                        <img id="lyricsCover" class="lyrics-cover" src="">
+
+                        <div class="lyrics-meta">
+                            <div class="lyrics-title" id="lyricsTitle">Song Title</div>
+                            <div class="lyrics-artist" id="lyricsArtist">Artist</div>
+                        </div>
+
+                        <div class="lyrics-actions">
+                            <button onclick="saveSong()">💾 Simpan</button>
+                        </div>
+                    </div>
+
+                    <textarea id="lyricsEditor" class="lyrics-editor"></textarea>
+
+                </div>
+            </div>
+
+            <!-- SETTINGS PANEL -->
+            <div id="settingsPanel" style="display:none;">
+                <div class="content-panel">
+                    <div class="panel-header">
+                        <h3>Settings</h3>
+                    </div>
+
+                    <h4>WhatsApp Bot</h4>
+                    <div id="waBotStatus">Checking...</div>
+                    <div id="waQrContainer" style="margin-top:10px;"></div>
+
+                    <button onclick="loadWABotStatus()">Refresh QR</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="bottom-player">
+        <div class="bottom-player-left">
+            <div class="bottom-cover">♫</div>
+            <div>
+                <div class="bottom-title" id="bottomCurrentTitle">No track playing</div>
+                <div class="bottom-subtitle" id="bottomCurrentStatus">Stopped</div>
+            </div>
+        </div>
+
+        <div class="bottom-player-center">
+            <div class="bottom-controls">
+                <button class="icon-btn" onclick="playNext()">⏮</button>
+                <button class="icon-btn primary" id="bottomToggleBtn" onclick="togglePlayPause()">▶</button>
+                <button class="icon-btn" onclick="skip()">⏭</button>
+            </div>
+
+            <div class="bottom-progress">
+                <span id="bottomCurrentTime">00:00</span>
+                <div class="bottom-progress-track" id="progressTrack">
+                    <div class="bottom-progress-fill" id="bottomProgressFill"></div>
+                    <div class="bottom-progress-thumb" id="progressThumb"></div>
+                </div>
+                <span id="bottomTotalTime">00:00</span>
+            </div>
+        </div>
+
+        <div class="bottom-player-right">
+            <div class="bottom-volume-wrap">
+                <span class="bottom-volume-label">Vol</span>
+                <input
+                    id="bottomVolumeSlider"
+                    class="bottom-volume-slider"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="100"
+                />
+                <span id="bottomVolumeValue">100%</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/app.js"></script>
+</body>
+</html>

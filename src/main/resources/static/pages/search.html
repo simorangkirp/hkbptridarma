@@ -1,0 +1,23 @@
+<!-- SEARCH PANEL -->
+            <div id="searchPanel" style="display:none;">
+
+                <!-- TOP SEARCH BAR -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                    <h2>Search</h2>
+
+                    <input type="text"
+                        id="searchInput"
+                        placeholder="Search artist or song..."
+                        onkeyup="searchSong(this.value)"
+                        class="search-top-input">
+                </div>
+
+                <!-- SONGS SECTION -->
+                <div class="section-header">
+                    <h3>Songs</h3>
+                    <a href="#" id="seeAllBtn" onclick="showAllResults()">See All</a>
+                </div>
+
+                <div id="searchResultsGrid" class="song-grid"></div>
+
+            </div>

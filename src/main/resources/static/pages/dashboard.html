@@ -1,0 +1,58 @@
+<!-- DASHBOARD PANEL -->
+            <div id="dashboardPanel">
+                <header class="topbar">
+                    <div>
+                        <div class="page-kicker">Live Control</div>
+                        <h1>Church Player Dashboard</h1>
+                    </div>
+
+                    <div class="topbar-actions">
+                        <input
+                            type="text"
+                            class="search-input"
+                            placeholder="Search UI placeholder"
+                            disabled
+                        />
+                        <button onclick="refreshAll()">↻ Refresh</button>
+                        <button onclick="playNext()">▶ Play Next</button>
+                    </div>
+                </header>
+
+                <div id="error" class="error-banner"></div>
+
+                <section class="hero-grid">
+                    <div class="hero-panel">
+                        <div class="section-label">Now Playing</div>
+                        <div id="current" class="hero-now-playing">
+                            <span class="muted">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-panel">
+                        <div class="section-label">Played History</div>
+                        <div id="status">
+                            <span class="muted">Loading...</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-grid">
+                    <div class="content-panel">
+                        <div class="panel-header">
+                            <h3>Queue</h3>
+                        </div>
+                        <div id="queue">
+                            <span class="muted">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="content-panel">
+                        <div class="panel-header">
+                            <h3>Incoming Tracks</h3>
+                        </div>
+                        <div id="tracks">
+                            <span class="muted">Loading...</span>
+                        </div>
+                    </div>
+                </section>
+            </div>

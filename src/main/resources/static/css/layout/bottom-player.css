@@ -1,0 +1,119 @@
+.bottom-player {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 108px;
+    background: rgba(12, 15, 22, 0.9);
+    backdrop-filter: blur(18px);
+    border-top: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 24px;
+    z-index: 999;
+}
+
+/* LEFT */
+.bottom-player-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 260px;
+    min-width: 260px;
+}
+
+.bottom-cover {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-title {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.bottom-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* CENTER */
+.bottom-player-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    max-width: 700px;
+}
+
+.bottom-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* PROGRESS */
+.bottom-progress {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 55px 1fr 55px;
+    gap: 12px;
+    align-items: center;
+}
+
+.bottom-progress-track {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.15);
+    cursor: pointer;
+}
+
+.bottom-progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7c3aed, #a855f7);
+}
+
+.bottom-progress-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border: 3px solid #7c3aed;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(124,58,237,0.5);
+}
+
+/* RIGHT */
+.bottom-player-right {
+    width: 220px;
+    min-width: 220px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.bottom-volume-slider {
+    width: 120px;
+}

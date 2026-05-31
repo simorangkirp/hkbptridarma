@@ -1,0 +1,46 @@
+<footer class="bottom-player">
+
+    <!-- LEFT -->
+    <div class="bottom-player-left">
+        <div class="bottom-cover">♫</div>
+        <div>
+            <div class="bottom-title" id="bottomCurrentTitle">No track playing</div>
+            <div class="bottom-subtitle" id="bottomCurrentStatus">Stopped</div>
+        </div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="bottom-player-center">
+        <div class="bottom-controls">
+            <button class="icon-btn" onclick="playNext()">⏮</button>
+            <button class="icon-btn primary" id="bottomToggleBtn" onclick="togglePlayPause()">▶</button>
+            <button class="icon-btn" onclick="skip()">⏭</button>
+        </div>
+
+        <div class="bottom-progress">
+            <span id="bottomCurrentTime">00:00</span>
+
+            <div class="bottom-progress-track" id="progressTrack">
+                <div class="bottom-progress-fill" id="bottomProgressFill"></div>
+                <div class="bottom-progress-thumb" id="progressThumb"></div>
+            </div>
+
+            <span id="bottomTotalTime">00:00</span>
+        </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="bottom-player-right">
+        <span class="bottom-volume-label">Vol</span>
+        <input
+            id="bottomVolumeSlider"
+            class="bottom-volume-slider"
+            type="range"
+            min="0"
+            max="100"
+            value="100"
+        />
+        <span id="bottomVolumeValue">100%</span>
+    </div>
+
+</footer>
