@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local # <--- Jalur default kalau kamu pencet 'Run' di IntelliJ / VS Code laptop
+    active: local
 
 ---
 # ----------------------------------------------------------------------
@@ -10,10 +10,6 @@ spring:
   config:
     activate:
       on-profile: local
-server:
-  port: 8087
-
-spring:
   datasource:
     url: jdbc:mysql://localhost:3306/church_player_agent?useSSL=false&serverTimezone=Asia/Jakarta&allowPublicKeyRetrieval=true
     username: root
@@ -31,6 +27,9 @@ spring:
     resources:
       add-mappings: true
 
+server:
+  port: 8087
+
 app:
   storage:
     incoming-dir: ./incoming
@@ -44,23 +43,22 @@ spring:
   config:
     activate:
       on-profile: prod
-server:
-  port: 8080 # <--- Kita balikin ke port standar Nginx biar rapi
-
-spring:
   datasource:
     url: jdbc:mysql://localhost:3306/tridarma_db?useSSL=false&serverTimezone=Asia/Jakarta&allowPublicKeyRetrieval=true
     username: admin@localhost
-    password: C!l4ndakPuL0 # <--- Menggunakan user database yang kita bikin di awal
+    password: C!l4ndakPuL0
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false # Di server dimatikan saja biar log-nya gak penuh dan berat
+    show-sql: false
   mvc:
     throw-exception-if-no-handler-found: true
   web:
     resources:
       add-mappings: true
+
+server:
+  port: 8080
 
 app:
   storage:
