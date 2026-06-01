@@ -45,7 +45,7 @@ spring:
       on-profile: prod
   datasource:
     url: jdbc:mysql://localhost:3306/tridarma_db?useSSL=false&serverTimezone=Asia/Jakarta&allowPublicKeyRetrieval=true
-    username: admin@localhost
+    username: admin
     password: C!l4ndakPuL0
   jpa:
     hibernate:
