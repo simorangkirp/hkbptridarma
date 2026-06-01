@@ -9,18 +9,21 @@ import java.util.Arrays;
 public class ChurchPlayerAgentApplication {
 
     public static void main(String[] args) {
-        // Cek apakah ada parameter profile 'prod' yang dimasukkan saat running
-        boolean isProd = Arrays.asList(args).contains("--spring.profiles.active=prod") 
-                         || "prod".equals(System.getProperty("spring.profiles.active"));
+        // 1. Paksa Headless Mode SEBELUM apapun terjadi
+        System.setProperty("java.awt.headless", "true");
+        System.out.println("====== SYSTEM: Headless Mode Activated ======");
+
+        // 2. Gunakan cara yang lebih stabil untuk deteksi profil
+        String profile = System.getProperty("spring.profiles.active");
+        boolean isProd = (profile != null && profile.contains("prod")) ||
+                Arrays.asList(args).contains("--spring.profiles.active=prod");
 
         if (!isProd) {
-            // Hanya jalankan JavaFX Toolkit jika BUKAN di server (di laptop lokal)
             System.out.println("====== RUNNING IN LOCAL MODE: Initializing JavaFX Platform ======");
-            Platform.startup(() -> {});
+            Platform.startup(() -> {
+            });
         } else {
-            // Jika di server, paksa Java berjalan dalam mode tanpa layar (Headless)
-            System.out.println("====== RUNNING IN SERVER MODE: Activating Headless Mode ======");
-            System.setProperty("java.awt.headless", "true");
+            System.out.println("====== RUNNING IN SERVER MODE: JavaFX Platform Skipped ======");
         }
 
         SpringApplication.run(ChurchPlayerAgentApplication.class, args);
