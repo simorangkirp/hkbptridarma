@@ -2,6 +2,7 @@ package church_player_agent.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tickets")
@@ -11,30 +12,32 @@ public class TicketEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ticket_code", unique = true, nullable = false, length = 36)
+    @Column(name = "ticket_code", nullable = false, length = 36, unique = true)
     private String ticketCode;
 
-    @Column(name = "issuer", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String issuer;
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String name;
 
     @Column(name = "is_used", nullable = false)
-    private boolean isUsed = false;
+    private Integer isUsed = 0;
 
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @Column(name = "updated_at", insertable = false, updatable = false)
+    private LocalDateTime updatedAt;
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+    @PrePersist
+    protected void onCreate() {
+        if (this.ticketCode == null) {
+            this.ticketCode = UUID.randomUUID().toString();
+        }
     }
 
-    // --- Generate Getters and Setters di bawah ini ---
+    // Getters dan Setters
     public Long getId() {
         return id;
     }
@@ -63,11 +66,11 @@ public class TicketEntity {
         this.name = name;
     }
 
-    public boolean isUsed() {
+    public Integer getIsUsed() {
         return isUsed;
     }
 
-    public void setUsed(boolean used) {
-        this.isUsed = used;
+    public void setIsUsed(Integer isUsed) {
+        this.isUsed = isUsed;
     }
 }

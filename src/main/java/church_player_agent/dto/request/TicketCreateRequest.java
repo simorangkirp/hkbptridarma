@@ -4,11 +4,35 @@ import java.util.List;
 
 public class TicketCreateRequest {
     private String issuer;
-    private List<String> names; // Menerima banyak nama pengunjung sekaligus jika beli > 1
+    private List<PassengerData> data;
 
-    // Getters and Setters
-    public String getIssuer() { return issuer; }
-    public void setIssuer(String issuer) { this.issuer = issuer; }
-    public List<String> getNames() { return names; }
-    public void setNames(List<String> names) { this.names = names; }
+    // Getters dan Setters
+    public String getIssuer() {
+        return issuer;
+    }
+
+    public void setIssuer(String issuer) {
+        this.issuer = issuer;
+    }
+
+    public List<PassengerData> getData() {
+        return data;
+    }
+
+    public void setData(List<PassengerData> data) {
+        this.data = data;
+    }
+
+    public static class PassengerData {
+        private String nama;
+
+        // Getters dan Setters
+        public String getNama() {
+            return nama;
+        }
+
+        public void setNama(String nama) {
+            this.nama = nama;
+        }
+    }
 }
