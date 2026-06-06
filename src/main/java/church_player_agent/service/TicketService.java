@@ -41,4 +41,27 @@ public class TicketService {
 
         return ticketRepository.saveAll(ticketsToSave);
     }
+
+    @Transactional
+    // Method Scan Ticket (Update ini di TicketService.java)
+    public TicketEntity scanTicket(String ticketCode) {
+        // Cari pakai method yang sudah kamu buat di Repository
+        TicketEntity ticket = ticketRepository.findByTicketCode(ticketCode)
+                .orElseThrow(() -> new RuntimeException("Tiket dengan kode " + ticketCode + " tidak ditemukan"));
+
+        if (ticket.getIsUsed() == 1) {
+            throw new RuntimeException("Tiket ini sudah pernah digunakan!");
+        }
+
+        ticket.setIsUsed(1);
+        return ticketRepository.save(ticket);
+    }
+
+    @Transactional
+    public void deleteTicket(String ticketCode) {
+        TicketEntity ticket = ticketRepository.findByTicketCode(ticketCode)
+                .orElseThrow(() -> new RuntimeException("Tiket tidak ditemukan, gagal menghapus."));
+
+        ticketRepository.delete(ticket);
+    }
 }
