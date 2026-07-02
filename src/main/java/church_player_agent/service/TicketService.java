@@ -64,4 +64,10 @@ public class TicketService {
 
         ticketRepository.delete(ticket);
     }
+
+    @Transactional
+    public TicketEntity getTicketById(Long id) {
+        return ticketRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tiket tidak ditemukan dengan ID: " + id));
+    }
 }
