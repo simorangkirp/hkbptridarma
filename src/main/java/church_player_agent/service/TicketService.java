@@ -10,15 +10,15 @@ import java.util.*;
 @Service
 public class TicketService {
     private final TicketRepository ticketRepository;
+    private final TicketImageService ticketImageService;
 
-    public TicketService(TicketRepository ticketRepository) {
+    public TicketService(TicketRepository ticketRepository, TicketImageService ticketImageService) {
         this.ticketRepository = ticketRepository;
+        this.ticketImageService = ticketImageService;
     }
 
     @Transactional
     public List<TicketEntity> generateTickets(TicketCreateRequest request) {
-        // Validasi pencegahan jika body data kosong/null agar tidak memicu
-        // NullPointerException
         if (request.getData() == null || request.getData().isEmpty()) {
             return Collections.emptyList();
         }
@@ -26,7 +26,6 @@ public class TicketService {
         List<TicketEntity> ticketsToSave = new ArrayList<>();
 
         for (TicketCreateRequest.PassengerData passenger : request.getData()) {
-            // Skip jika ada object array yang namanya dikirim kosong oleh frontend
             if (passenger.getNama() == null || passenger.getNama().trim().isEmpty()) {
                 continue;
             }
@@ -35,11 +34,28 @@ public class TicketService {
             ticket.setIssuer(request.getIssuer());
             ticket.setName(passenger.getNama());
             ticket.setIsUsed(0);
+            ticket.setTicketCode(UUID.randomUUID().toString()); // Pastikan UUID diset sebelum simpan
 
             ticketsToSave.add(ticket);
         }
 
-        return ticketRepository.saveAll(ticketsToSave);
+        // 3. Simpan semua dulu ke database agar ID terbentuk
+        List<TicketEntity> savedTickets = ticketRepository.saveAll(ticketsToSave);
+
+        // 4. Loop hasil yang sudah di-save untuk generate gambar
+        for (TicketEntity ticket : savedTickets) {
+            try {
+                // Generate gambar dan simpan path-nya
+                String fileName = ticketImageService.generateAndSaveImage(ticket.getTicketCode(), ticket.getId());
+                ticket.setImagePath(fileName);
+            } catch (Exception e) {
+                // Log error jika generate gagal
+                System.err.println("Gagal generate gambar untuk tiket ID: " + ticket.getId());
+            }
+        }
+
+        // 5. Update kembali database dengan path gambar
+        return ticketRepository.saveAll(savedTickets);
     }
 
     @Transactional

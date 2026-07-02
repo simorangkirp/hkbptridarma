@@ -10,6 +10,10 @@ import church_player_agent.service.TicketService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path; // Tambahkan ini!
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,14 +64,20 @@ public class TicketController {
 
     @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> getTicketImage(@PathVariable Long id) {
-        // 1. Ambil data tiket berdasarkan ID (buat method di service untuk
-        // getTicketById)
-        TicketEntity ticket = ticketService.getTicketById(id);
+        String fileName = "ticket_" + id + ".png";
+        Path path = Paths.get("/var/www/tridarma-backend/uploads/tickets/" + fileName);
 
-        // 2. Generate gambar
+        // Cek apakah file ada
+        if (!Files.exists(path)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Baca file langsung dari disk (Sangat Cepat!)
         try {
-            byte[] image = ticketImageService.generateTicketImage(ticket.getTicketCode());
-            return ResponseEntity.ok().body(image);
+            byte[] image = Files.readAllBytes(path);
+            return ResponseEntity.ok()
+                    .header("Cache-Control", "max-age=86400") // Cache 24 jam
+                    .body(image);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }

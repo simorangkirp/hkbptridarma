@@ -30,6 +30,9 @@ public class TicketEntity {
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
     @PrePersist
     protected void onCreate() {
         if (this.ticketCode == null) {
@@ -72,5 +75,13 @@ public class TicketEntity {
 
     public void setIsUsed(Integer isUsed) {
         this.isUsed = isUsed;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
