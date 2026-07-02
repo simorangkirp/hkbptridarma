@@ -38,14 +38,15 @@ public class TicketController {
 
         // 2. Mapping Entity -> DTO dengan URL gambar
         String baseUrl = "http://103.193.179.186/tickets/images";
+
         List<TicketResponse> responseList = createdTickets.stream().map(t -> new TicketResponse(
                 t.getId(),
                 t.getIsUsed(),
                 t.getIssuer(),
                 t.getName(),
                 t.getTicketCode(),
-                baseUrl + "/" + t.getId() + "/image" // URL Gambar otomatis terbentuk
-        )).collect(Collectors.toList());
+                // Gunakan t.getId() untuk mengambil ID dari objek tiket
+                baseUrl + "/ticket_" + t.getId() + ".png")).collect(Collectors.toList());
 
         return ResponseEntity.ok(ApiResponse.success(responseList, "Tiket berhasil digenerate"));
     }
