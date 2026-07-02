@@ -33,7 +33,7 @@ public class TicketController {
         List<TicketEntity> createdTickets = ticketService.generateTickets(request);
 
         // 2. Mapping Entity -> DTO dengan URL gambar
-        String baseUrl = "http://localhost:8087/api/v1/tickets";
+        String baseUrl = "http://103.193.179.186:8080/api/v1/tickets";
         List<TicketResponse> responseList = createdTickets.stream().map(t -> new TicketResponse(
                 t.getId(),
                 t.getIsUsed(),
